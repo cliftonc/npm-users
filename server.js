@@ -10,11 +10,18 @@ var express = require('express'),
 	validatorMixin = require('./lib/validator.mixin'),
 	mailer = require('./lib/emailer').Mailer,
 	check = require('validator').check,
-	sanitize = require('validator').sanitize;
+	sanitize = require('validator').sanitize,
+	couch = require('./lib/couch.facade');
 
 /**
  * Initial configuration of the Express server
- */
+ * 
+ * Configuration from ENV
+ * COUCH=localhost:5984 
+ * USERDB=_users 
+ * ADMIN=adminuser:adminpass
+ *
+ **/
 var app = express.createServer();
 app.use(express.bodyParser());
 app.use(express.methodOverride());
@@ -48,7 +55,7 @@ app.configure('development', function() {
 	app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 	
 	app.set('baseUrl','localhost:3000');
-	app.set('helpEmail','<EMAIL>@gmail.com');
+	app.set('helpEmail','clifton.cunningham@gmail.com');
 	
 	// Enable list in dev mode
 	app.get('/list', function(req,res,next) {	
@@ -62,7 +69,7 @@ app.configure('development', function() {
  */
 app.configure('production', function() {	
 	app.set('baseUrl','localhost:3000');
-	app.set('helpEmail','<EMAIL>@gmail.com');	
+	app.set('helpEmail','clifton.cunningham@gmail.com');	
 	app.use(express.errorHandler({ dumpExceptions: false, showStack: false }));
 });
 
@@ -107,25 +114,40 @@ app.post('/reset', function(req,res,next) {
 		 * TODO: WE SHOULD MAKE SURE THE USER IS IN NPM AT THIS POINT
 		 * account details are in token.username / token.email
 		 */	
+    	couch.validateUser(req.params.username,function(isValid,revision) {
+    		
+    		if(isValid) {
+    			
+    			console.log("Revision: " + revision);
+    			
+    			// We need to store the revision to delete it
+    			tokenRegistry.setRevision(tokenId,revision);
+    			
+	    		// SMTP settings for the emailer are in lib/emailer.js
+	        	mailer.sendMail({
+	    	    			tokenId:tokenId,
+	    	    			email:req.params.email,
+	    	    			username:req.params.username,
+	    	    			baseUrl:app.set('baseUrl'),
+	    	    			helpEmail:app.set('helpEmail')
+	    	    }, function(err,result) {	    	
+	    	    	if(!err) {
+	    	        	responseData = {message:'Your request has been submitted, if your details are valid you will receive an email with further instructions.'};
+	    	    		res.render("reset",{locals:responseData});
+	    	    	} else {
+	    	        	responseData = {message:'There was a problem sending you an email:<br/><pre class="code">' + err + '</pre>This is probably because we have misconfigured something on the backend, please try again later.'};
+	    	    		res.render("reset",{locals:responseData});		
+	    	    	}	    	
+	    	    });
+	        	
+    		} else {
+    	    	responseData = {message:'That username was not found in the repository!'};
+	    		res.render("reset",{locals:responseData});			   
+    		}
+    		
+    	});
     	
-    	// SMTP settings for the emailer are in lib/emailer.js
-    	mailer.sendMail({
-	    			tokenId:tokenId,
-	    			email:req.params.email,
-	    			username:req.params.username,
-	    			baseUrl:app.set('baseUrl'),
-	    			helpEmail:app.set('helpEmail')
-	    }, function(err,result) {
-	    	
-	    	if(!err) {
-	        	responseData = {message:'Your request has been submitted, if your details are valid you will receive an email with further instructions.'};
-	    		res.render("reset",{locals:responseData});
-	    	} else {
-	        	responseData = {message:'There was a problem sending you an email:<br/><pre class="code">' + err + '</pre>This is probably because we have misconfigured something on the backend, please try again later.'};
-	    		res.render("reset",{locals:responseData});		
-	    	}
-	    	
-	    });
+    	
     	
     	
     	
@@ -137,7 +159,6 @@ app.post('/reset', function(req,res,next) {
     }
        		
 });
-
 
 /**
  * Confirmation via the email link
@@ -152,13 +173,17 @@ app.get('/confirm/:tokenId', function(req,res,next) {
 			 * TODO: IF YOU GET TO THIS POINT YOU CAN NOW RESET THE ACCOUNT
 			 * account details are in token.username / token.email
 			 */							
-			
-			// Clean up
-			tokenRegistry.removeToken(req.params.tokenId);
-			
+	    	couch.deleteUser(token,function(isValid) {
+				if(isValid) {
+					tokenRegistry.removeToken(req.params.tokenId);					
+				} else {
+					err = {message:'Unable to delete the user from the repository'};					
+				}				
+	    	});			
 		};
 		
 		res.render("confirm",{locals:{err:err,token:token}});
+				
 	});	
 		
 });

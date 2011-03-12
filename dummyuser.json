@@ -1,0 +1,8 @@
+{
+    "_id": "org.couchdb.user:test",
+    "name": "test",
+    "password_sha": "24e8e07c23d8ae85108468ec4814b2f0fa84edde",
+    "salt": "78f67e252351a56d6e1e6df9ba005239",
+    "roles": [],
+    "type": "user"
+}
