@@ -103,6 +103,11 @@ app.post('/reset', function(req,res,next) {
     	var expires = new Date((new Date()).getTime() + 1000*60*60*24);
     	var tokenId = tokenRegistry.createToken(req.body.username, req.body.email, 'pending', expires);
     	    
+    	/**
+		 * TODO: WE SHOULD MAKE SURE THE USER IS IN NPM AT THIS POINT
+		 * account details are in token.username / token.email
+		 */	
+    	
     	// SMTP settings for the emailer are in lib/emailer.js
     	mailer.sendMail({
 	    			tokenId:tokenId,
