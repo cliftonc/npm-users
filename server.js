@@ -1,9 +1,10 @@
 /**
  * Very lightweight server, use Express to enable a small amount of flex
- * Basic requirements for password reset
+ * Basic requirements for password reset via a token
  * 
- * TODO: Link to couch to actually delete the user!
+ * Author: clifton.cunningham@gmail.com
  * 
+ *  
  */
 var express = require('express'), 
 	tokenRegistry = require('./lib/token.registry').TokenRegistry,
@@ -17,8 +18,7 @@ var express = require('express'),
  * Initial configuration of the Express server
  * 
  * Configuration from ENV
- * COUCH_HOST=localhost
- * COUCH_PORT=5984 
+ * COUCH=localhost:5984
  * USERDB=_users 
  * ADMIN=adminuser:adminpass
  *
@@ -51,10 +51,9 @@ app.set('view engine', 'html');
  * Development configuration, enables a '/list' route that shows all tokens
  */
 app.configure('development', function() {
-	
+		
 	app.use(express.logger());
-	app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-	
+	app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));	
 	app.set('baseUrl','localhost:3000');
 	app.set('helpEmail','clifton.cunningham@gmail.com');
 	
@@ -68,7 +67,7 @@ app.configure('development', function() {
 /**
  * Production configuration, no '/list' route that shows all tokens
  */
-app.configure('production', function() {	
+app.configure('production', function() {		
 	app.set('baseUrl','localhost:3000');
 	app.set('helpEmail','clifton.cunningham@gmail.com');	
 	app.use(express.errorHandler({ dumpExceptions: false, showStack: false }));
@@ -89,10 +88,10 @@ app.post('/reset', function(req,res,next) {
 	// Mixin params for validator
 	req.mixinParams();
 
-	var errors = [];
+	var errors = "";
 	
 	req.onValidationError(function (msg) {
-    	errors.push(msg);    			
+    	errors += msg + "<br/>";			
     });
 	
     //Validate user input
@@ -114,11 +113,9 @@ app.post('/reset', function(req,res,next) {
 		 * TODO: WE SHOULD MAKE SURE THE USER IS IN NPM AT THIS POINT
 		 * account details are in token.username / token.email
 		 */	
-    	couch.validateUser(req.params.username,function(isValid,revision) {
+    	couch.validateUser(req.params.username,req.params.email,function(isValid,revision) {
     		
     		if(isValid) {
-    			
-    			console.log("Revision: " + revision);
     			
     			// We need to store the revision to delete it
     			tokenRegistry.setRevision(tokenId,revision);
@@ -153,7 +150,7 @@ app.post('/reset', function(req,res,next) {
     	
     } else {
     	
-    	responseData = {message:'There were errors in the information you entered: <br><pre class="code">' + JSON.stringify(errors) + '</pre>'};
+    	responseData = {message:'There were errors in the information you entered: <br><pre class="code">' + errors + '</pre>'};
     	res.render("reset",{locals:responseData});
     	
     }
@@ -167,8 +164,7 @@ app.get('/confirm/:tokenId', function(req,res,next) {
 
 	tokenRegistry.getToken(req.params.tokenId,function(err,token) {
 		
-		if(!err) {			
-			
+		if(!err) {						
 			/**
 			 * TODO: IF YOU GET TO THIS POINT YOU CAN NOW RESET THE ACCOUNT
 			 * account details are in token.username / token.email

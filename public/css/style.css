@@ -16,7 +16,7 @@ body {
 
 #container {
 	position: relative;
-	padding: 10px 20%;
+	padding: 50px 20%;
 }
 
 /*--- Basics ---*/
@@ -37,23 +37,10 @@ strong { font-weight: bold; }
 em { font-style: italic; }
 a { text-decoration: none; color: #333; }
 a, h1 a, h2 a { text-decoration: none; }
-a:hover { color: #232323; }
+a:hover { color: #4343A3;  }
 a:visited:hover { color: #232323; }
 a img { border: none; }
 
-/*--- Lists ---*/
-li ul, li ol { margin: 0; }
-ul, ol { margin: 0 0 1em 2.75em; }
-dt, dd {
-	font-style: italic;
-	margin: .5em 0;
-}
-dt {
-	font-weight: bold;
-}
-dd {
-	margin-left: 1em;
-}
 /*--- Header ---*/
 #header h1 {
 	margin: .1em 0;
@@ -67,49 +54,6 @@ dd {
 	line-height: 22px;
 }
 
-/*--- Tables ---*/
-table {
-	clear: both;
-	width: 100%;
-	border-collapse: collapse;
-	border-spacing: 0;
-	border: 1px solid #e6e6e6;
-	background: #eaeafa;
-	margin: 12px 0;
-}
-td, th {
-	padding: .25em 1em;
-	border: 1px solid #a6a6c6;
-	vertical-align: middle;
-	text-align: left;
-	font-weight: normal;
-	color: #333;
-	font-size: 0.85em;
-}
-
-table tr {
-	background: #fff;
-}
-
-table.tabular tr:nth-child(even) {
-	background: #eaeafa;
-}
-
-tfoot td {
-	background: #d3d3f3;
-	color: #333;
-	text-align: left;	
-	padding: 1em 0.5em;
-	font-size: 0.7em;
-}
-
-th {
-	background: #d3d3f3;
-	color: #333;
-	text-align: left;
-	font-weight: bold;
-	padding: .5em .75em;
-}
 /*--- Forms ---*/
 form {
 	display: block;
@@ -117,18 +61,6 @@ form {
 	background: #eaeafa;
 	padding: 1em 2em 2em 2em;
 	border: 1px solid #a6a6c6;
-}
-fieldset {
-	padding: 2em;
-	margin: 0 0 1em 0;
-	border: 1px solid #a6a6c6;
-	background: #f3f3f3;
-}
-legend {
-	padding: .5em 1em;
-	border: 1px solid #a6a6c6;
-	background: #fff;
-	font-size: 22px;
 }
 label {
 	padding: 0 1em 0 0;
@@ -154,127 +86,40 @@ input[type=text], input[type=password], textarea {
 	margin: .5em 0 1em 0;
 	padding:.5em;
 }
-select {
-	clear: both;
-	display: block;
-	margin: .5em 0 1em 0;
-}
-div.checkbox {
-	clear: both;
-	padding: 1em 0;
-}
-.checkbox label {
-	display: inline;
-}
-
 input[type=text]:focus, input[type=password]:focus, textarea:focus, select:focus {
 	border-color: #00a8e6;
 	outline: none;
 }
-
-/*--- Misc ---*/
-hr {
-	border: none;
-	height: 0;
-	border-bottom: 1px solid #e6e6e6;
-	margin:1em 0;
-}
-sup, sub {
-	color: #666;
-	font-size: .65em;
-}
-acronym {
-	font-weight: bold;
-	font-style: italic;
-	color: #333;
-}
-abbr {
-	color: #333;
-}
-
-blockquote {
-	padding: 0.15em .5em;
-	margin: 0.5em 0;
-	font-size: 2em;
-	color: #666;	
-	display: block;
-	font-style: italic;
-}
-
-blockquote:before, blockquote:after {
-	display: inline;
-	color: #e5e5e5;
-	font-size: 3em;
-	position: relative;
-	top: 0.25em;
-	left: -0.1em;
-}
-
-blockquote:before {
-	content: '\D \201C';
-}
-
-
-span.pager-page {
-	font-family: Helvetica, Arial, sans-serif;
-	padding: 3px 3px;
-	margin: 3px 3px 3px 3px;
-	color: #454545;	
-	line-height: 1.25em;	
-}
-
-input.pager-page {
-	display: inline !important; 
-	width: 30px;
-	font-family: Helvetica, Arial, sans-serif;
-	padding: 2px 2px;
-	margin: 3px 3px 3px 3px;
-	color: #454545;	
-	line-height: 1.25em;	
-	clear: none;
-}
-
-a.pager-page {
-	font-family: Helvetica, Arial, sans-serif;
-	padding: 3px 3px;
-	margin: 3px 3px 3px 3px;	
+div.messages {
+	padding: 10px;
+	border: solid 1px #efefef;
+	background: #eaeafa;
+	margin-top: 10px;	
+	margin-bottom: 20px;
 	border: 1px solid #a6a6c6;
-	color: #454545;	
-	line-height: 1.25em;
-	background-color: #efefef;
 }
-
-blockquote:after {
-	content: '\201D';
-}
-
 pre.code {
 	padding: 10px;
-	color: white;
-	background-color: #883434;
+	color: red;
+	background-color: white;	
 	margin-top: 10px;	
+	margin-bottom: 20px;
+	border: 1px solid #a6a6c6;
 }
 
 /*--- Shadows ---*/
-pre.code {
-	-moz-box-shadow: 0 0 3px rgba(0,0,0,.1);
-	-webkit-box-shadow: 0 0 3px rgba(0,0,0,.1);
-	box-shadow: 0 0 3px rgba(0,0,0,.1);	
-}
-table, form {
+
+form {
 	margin-top: 0px;
 	margin-bottom: 12px;
 }
-table, form, pre > code, .shadow {
+form, pre > code, .shadow, div.messages {
 	-moz-box-shadow: 2px 2px 12px rgba(0,0,0,.15);
 	-webkit-box-shadow: 2px 2px 12px rgba(0,0,0,0.15);
 	box-shadow: 2px 2px 12px rgba(0,0,0,.15);
 }
-img.shadow {
-	border: 1px solid rgba(255,255,255,.15);
-}
 
-input[type=text],input[type=password], textarea {
+input[type=text],input[type=password], textarea, pre.code  {
 	-moz-box-shadow: inset 0 0 5px rgba(0,0,0,.2);
 	-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,.2);
 	box-shadow: inset 0 0 5px rgba(0,0,0,.2);

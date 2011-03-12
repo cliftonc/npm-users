@@ -4,7 +4,7 @@ Initial application skeleton for the NPM registry user reset node app (as per co
 * DONE - Look up that user account.
 * DONE Mint a token good for 24 hours, and put it in a db (or something) along with the account name
 * DONE - Email the token to the email address.
-* TODO - When presented with a valid token, delete the user account out of the db, and tell them to run npm adduser to re-create it.
+* DONE - When presented with a valid token, delete the user account out of the db, and tell them to run npm adduser to re-create it.
 
 Delete account:
 
@@ -16,8 +16,7 @@ How to use
 * 'npm link' to get all the dependencies (you do need nodejs and npm!)
 * Set the environment variables:
 
-    COUCH_HOST=localhost
-    COUCH_PORT=5984 
+    COUCH=localhost:5984    
     USERDB=_users 
     ADMIN=adminuser:adminpass
     
