@@ -1,15 +1,25 @@
 Initial application skeleton for the NPM registry user reset node app (as per conversation here: https://github.com/isaacs/npm/issues/321).
 
 * DONE - User enters their username.
-* TODO - Look up that user account.
+* DONE - Look up that user account.
 * DONE Mint a token good for 24 hours, and put it in a db (or something) along with the account name
 * DONE - Email the token to the email address.
 * TODO - When presented with a valid token, delete the user account out of the db, and tell them to run npm adduser to re-create it.
 
-Lookup account:
-
-* The form validates the input, but doesn't do a call to the couchdb to validate that it is actually in NPM (TODO).
-
 Delete account:
 
-* The token will be processed, but it doesn't do a call to the couchdb to delete it.
+* I haven't quite cracked the authentication yet ... get all the way to couch and it tells me my admin isn't an admin - TODO!
+
+How to use
+
+* Clone this repository
+* 'npm link' to get all the dependencies (you do need nodejs and npm!)
+* Set the environment variables:
+
+    COUCH_HOST=localhost
+    COUCH_PORT=5984 
+    USERDB=_users 
+    ADMIN=adminuser:adminpass
+    
+* Scan through server.js and emailer.js and change the settings to suit yourself.    
+* node server.js
