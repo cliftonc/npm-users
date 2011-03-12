@@ -73,7 +73,6 @@ app.configure('production', function() {
 	app.use(express.errorHandler({ dumpExceptions: false, showStack: false }));
 });
 
-
 /**
  * Home page
  */
