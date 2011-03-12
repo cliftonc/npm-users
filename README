@@ -2,13 +2,9 @@ Initial application skeleton for the NPM registry user reset node app (as per co
 
 * DONE - User enters their username.
 * DONE - Look up that user account.
-* DONE Mint a token good for 24 hours, and put it in a db (or something) along with the account name
+* DONE - Mint a token good for 24 hours, and put it in a db (or something) along with the account name
 * DONE - Email the token to the email address.
 * DONE - When presented with a valid token, delete the user account out of the db, and tell them to run npm adduser to re-create it.
-
-Delete account:
-
-* I haven't quite cracked the authentication yet ... get all the way to couch and it tells me my admin isn't an admin - TODO!
 
 How to use
 
