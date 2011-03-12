@@ -17,7 +17,8 @@ var express = require('express'),
  * Initial configuration of the Express server
  * 
  * Configuration from ENV
- * COUCH=localhost:5984 
+ * COUCH_HOST=localhost
+ * COUCH_PORT=5984 
  * USERDB=_users 
  * ADMIN=adminuser:adminpass
  *
