@@ -1,0 +1,12 @@
+# set these to appropriate values, and rename this file to "config"
+# make sure to quote any spaces.  Syntax = sh
+COUCH=localhost:5984
+COUCH_USERDB=_users
+COUCH_ADMIN=adminuser:adminpass
+EMAIL_USERNAME=clifton.cunningham@gmail.com
+EMAIL_PASSWORD=mypassword
+EMAIL_SMTPHOST=smtp.gmail.com
+EMAIL_SMTPPORT=465
+EMAIL_FROM=user-account-bot@npmjs.org
+HOSTNAME=localhost
+PORT=3000
