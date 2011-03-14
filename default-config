@@ -1,12 +1,27 @@
 # set these to appropriate values, and rename this file to "config"
 # make sure to quote any spaces.  Syntax = sh
-COUCH=localhost:5984
-COUCH_USERDB=_users
-COUCH_ADMIN=adminuser:adminpass
-EMAIL_USERNAME=clifton.cunningham@gmail.com
-EMAIL_PASSWORD=mypassword
-EMAIL_SMTPHOST=smtp.gmail.com
-EMAIL_SMTPPORT=465
-EMAIL_FROM=user-account-bot@npmjs.org
-HOSTNAME=localhost
-PORT=3000
+
+# the couchdb where you want to reset accounts.
+export COUCH=localhost:5984
+export COUCH_USERDB=_users
+export COUCH_ADMIN=adminuser:adminpass
+export COUCH_SSL=0
+
+# email login information.
+export EMAIL_USERNAME=clifton.cunningham@gmail.com
+export EMAIL_PASSWORD=mypassword
+export EMAIL_SMTPHOST=smtp.gmail.com
+export EMAIL_SMTPPORT=465
+export EMAIL_SSL=1
+
+# Important!  If using gmail, then you need to have established
+# this as an email address that you can send from.
+export EMAIL_FROM='"The npm Password Reset Bot" <user-account-bot@npmjs.org>'
+
+# where the website is running
+export HOSTNAME=localhost
+export PORT=3000
+
+# change to "development" to enable the /list page.
+# Make sure to change to production before pushing live!
+export NODE_ENV=production
