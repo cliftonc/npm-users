@@ -165,8 +165,8 @@ app.post('/reset', function(req,res,next) {
           } else {
             responseData = {
               message: 'There was a problem sending you an email:'+
-                       '<br><pre class="code">' + err + '</pre>'
-                       'This is probably because we have misconfigured '
+                       '<br><pre class="code">' + err + '</pre>' +
+                       'This is probably because we have misconfigured ' +
                         'something on the backend, please try again later.'
             };
             res.render("reset",{ locals: responseData });
