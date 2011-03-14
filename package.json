@@ -1,24 +1,27 @@
 {
   "name": "npm-users",
-  "description": "NPM User Reset",
-  "version": "0.1.0",
+  "description": "npm User Reset",
+  "version": "0.1.1",
   "homepage": "http://cliftonc.github.com/npm-users",
   "repository": {
     "type": "git",
     "url": "git://github.com/cliftonc/npm-users"
   },
-  "author": "Clifton Cunningham <clifton.cunningham@gmail.com> (cliftoncunningham.co.uk)",
+  "author": "Clifton Cunningham <clifton.cunningham@gmail.com> (http://cliftoncunningham.co.uk)",
   "engines" : { "node" : "0.4 || 0.5" },
   "dependencies" : {
-             "express" : ">=2.0.0beta3",
-             "connect" : ">=1.0.3",
-             "ejs" : ">=0.3.1",
-             "validator" : ">=0.1.7",
-             "nodemailer" : ">=0.1.8",
-             "request" : ">=1.9.0"
+    "express" : ">=2.0.0beta3",
+    "connect" : ">=1.0.3",
+    "ejs" : ">=0.3.1",
+    "validator" : ">=0.1.7",
+    "nodemailer" : ">=0.1.8",
+    "request" : ">=1.9.0"
   },
   "devDependencies" : {
-             "expresso" : ">=0.7.3",
-             "should" : ">=0.0.4"
+    "expresso" : ">=0.7.3",
+    "should" : ">=0.0.4"
+  },
+  "scripts" : {
+    "start" : "(source ./config ; node server.js)"
   }
 }
