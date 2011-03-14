@@ -8,7 +8,7 @@
 /**
  * Initial configuration of the Express server
  *
- * Configuration from ENV
+ * Configuration from config.js
  * COUCH=localhost:5984
  * COUCH_USERDB=_users
  * COUCH_ADMIN=adminuser:adminpass
@@ -21,6 +21,8 @@
  * PORT=3000
  *
  **/
+var config = require("./config")
+
 var envFields = [ 'COUCH',
                   'COUCH_USERDB',
                   'COUCH_ADMIN',
@@ -33,7 +35,7 @@ var envFields = [ 'COUCH',
                   'PORT' ];
 
 var missing = envFields.filter(function (f) {
-  return undefined === process.env[f]
+  return undefined === config[f]
 })
 
 if (missing.length) {
@@ -83,8 +85,8 @@ app.configure('development', function() {
   app.use(express.logger());
   app.use(express.errorHandler({ dumpExceptions: true,
                                  showStack: true }));
-  var baseUrl = process.env.HOSTNAME;
-  if (process.env.PORT !== 80) baseUrl += ':' + process.env.PORT;
+  var baseUrl = config.HOSTNAME;
+  if (config.PORT !== 80) baseUrl += ':' + config.PORT;
   app.set('baseUrl',baseUrl);
 
   // Enable list in dev mode
@@ -98,8 +100,8 @@ app.configure('development', function() {
  * Production configuration, no '/list' route that shows all tokens
  */
 app.configure('production', function() {
-  var baseUrl = process.env.HOSTNAME;
-  if (process.env.PORT !== 80) baseUrl += ':' + process.env.PORT;
+  var baseUrl = config.HOSTNAME;
+  if (config.PORT !== 80) baseUrl += ':' + config.PORT;
   app.set('baseUrl',baseUrl);
   app.use(express.errorHandler({ dumpExceptions: false,
                                  showStack: false }));
@@ -224,7 +226,7 @@ app.get('/confirm/:tokenId', function(req,res,next) {
 /**
  * Launch the server
  */
-app.listen(process.env.PORT, function (er) {
+app.listen(config.PORT, function (er) {
   if (er) throw er
   console.log("server started on http://"+app.set('baseUrl'))
 });
