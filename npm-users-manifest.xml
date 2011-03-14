@@ -23,7 +23,7 @@
       </method_environment>
     </method_context>
     <exec_method type="method" name="start"
-      exec="/opt/local/bin/node /home/node/npm-users/server.js &amp;"
+      exec="/opt/local/bin/node /home/node/npm-users/server.js"
       timeout_seconds="10" />
     <exec_method type="method" name="stop" exec=":kill" timeout_seconds="60" />
     <property_group name="startd" type="framework">
