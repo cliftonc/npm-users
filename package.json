@@ -22,6 +22,6 @@
     "should" : ">=0.0.4"
   },
   "scripts" : {
-    "start" : "(source ./config ; node server.js)"
+    "start" : "node server.js"
   }
 }

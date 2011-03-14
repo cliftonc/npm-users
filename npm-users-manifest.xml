@@ -23,7 +23,7 @@
       </method_environment>
     </method_context>
     <exec_method type="method" name="start"
-      exec="bash -c &quot;(source /home/node/npm-users/config &amp;&amp; /opt/local/bin/node /home/node/npm-users/server.js) &amp;&quot;"
+      exec="/opt/local/bin/node /home/node/npm-users/server.js &amp;"
       timeout_seconds="10" />
     <exec_method type="method" name="stop" exec=":kill" timeout_seconds="60" />
     <property_group name="startd" type="framework">
