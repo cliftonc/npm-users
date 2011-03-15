@@ -1,4 +1,5 @@
-Initial application skeleton for the NPM registry user reset node app (as per conversation here: https://github.com/isaacs/npm/issues/321).
+Initial application skeleton for the NPM registry user reset node app
+(as per conversation here: https://github.com/isaacs/npm/issues/321).
 
 * DONE - User enters their username.
 * DONE - Look up that user account.
@@ -10,11 +11,5 @@ How to use
 
 * Clone this repository
 * 'npm link' to get all the dependencies (you do need nodejs and npm!)
-* Set the environment variables:
-
-    COUCH=localhost:5984    
-    USERDB=_users 
-    ADMIN=adminuser:adminpass
-    
-* Scan through server.js and emailer.js and change the settings to suit yourself.    
+* Copy the "default-config.js" to "config.js" and fill in all the details.
 * node server.js
