@@ -111,8 +111,12 @@ app.configure('production', function() {
  * Home page
  */
 app.get('/', function(req,res,next) {
-  res.render('home');
+  res.render('reset-home');
 });
+
+app.get('/reset', function (req, res, next) {
+  res.render('reset-home');
+})
 
 /**
  * Post of request
